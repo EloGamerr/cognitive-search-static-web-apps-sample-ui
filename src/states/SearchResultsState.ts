@@ -105,7 +105,7 @@ export class SearchResultsState extends ErrorMessageState {
         }
        
         const uri = `${BackendUri}${this.searchClauseAndQueryType}${this._filterClause}&${orderClause}&${facetsClause}&$select=${fields}${highlightClause}&$top=${PageSize}&$skip=${this.searchResults.length}`;
-       
+       console.log(uri);
         this._inProgress = true;
         axios.get(uri).then(response => {
 
@@ -153,7 +153,10 @@ export class SearchResultsState extends ErrorMessageState {
         });
     }
 
-    private get searchClause(): string { return `?search=${encodeURIComponent(this._searchString)}`; }
+    private get searchClause(): string {
+        const regex = /[+-\\&|!(){}[\]^"~*?:\\/]/g
+        return `?search=${this._searchString.replace(regex, "\\$&")}`;
+    }
     private get searchClauseAndQueryType(): string { return `/search${this.searchClause}&$count=true&queryType=full`; }
 
     @observable
