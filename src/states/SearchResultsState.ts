@@ -153,7 +153,7 @@ export class SearchResultsState extends ErrorMessageState {
         });
     }
 
-    private get searchClause(): string { return `?search=${this._searchString}`; }
+    private get searchClause(): string { return `?search=${encodeURIComponent(this._searchString)}`; }
     private get searchClauseAndQueryType(): string { return `/search${this.searchClause}&$count=true&queryType=full`; }
 
     @observable
