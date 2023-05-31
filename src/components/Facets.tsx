@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 
-import { Collapse, List, ListItem, ListItemText } from '@material-ui/core';
+import { Checkbox, Collapse, List, ListItem, ListItemText } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 import { BooleanFacet } from './BooleanFacet';
@@ -27,8 +27,27 @@ export class Facets extends React.Component<{ state: FacetsState, inProgress: bo
 
         const state = this.props.state;
 
-        return (<FacetList component="nav">
+        return (
+        <FacetList component="nav">
+               <OrderValueListItem key={"order_asc"} dense disableGutters>
+                    <Checkbox edge="start" disableRipple
+                            disabled={this.props.inProgress}
+                            checked={state.ordering == 1}
+                            onChange={(evt) => evt.target.checked ? state.ordering = 1 : state.ordering = 0}
+                    />
+                    <ListItemText primary="Tri croissant" />
+                </OrderValueListItem>
+                <OrderValueListItem key={"order_desc"} dense disableGutters>
+                    <Checkbox edge="start" disableRipple
+                            disabled={this.props.inProgress}
+                            checked={state.ordering == 2}
+                            onChange={(evt) => evt.target.checked ? state.ordering = 2 : state.ordering = 0}
+                        />
+                    <ListItemText primary="Tri décroissant" />
+                </OrderValueListItem>
 
+
+           
             {state.facets.map(facetState => {
 
                 var facetComponent: JSX.Element = null;
@@ -81,3 +100,7 @@ const FacetList: typeof List = styled(List)({
 const FacetListItem: typeof ListItem = styled(ListItem)({
     paddingLeft: '36px !important',
 })
+
+const OrderValueListItem: typeof ListItem = styled(ListItem)({
+    paddingLeft: '46px !important',
+});

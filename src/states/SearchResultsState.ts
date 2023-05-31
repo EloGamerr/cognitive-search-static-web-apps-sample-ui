@@ -94,8 +94,18 @@ export class SearchResultsState extends ErrorMessageState {
         // Asking for @search.highlights field to extract fuzzy search keywords from. But only if CognitiveSearchTranscriptFields setting is defined.
         const highlightClause = !this._config.CognitiveSearchTranscriptFields ? `` : `&highlight=${this._config.CognitiveSearchTranscriptFields}`;
 
-        const uri = `${BackendUri}${this.searchClauseAndQueryType}${this._filterClause}&${facetsClause}&$select=${fields}${highlightClause}&$top=${PageSize}&$skip=${this.searchResults.length}`;
+        var orderClause = "";
 
+        if (this._facetsState.ordering != 0) {
+            if (this._facetsState.ordering == 1) {
+                orderClause = "$orderby=metadata_title";
+            } else {
+                orderClause = "$orderby=metadata_title desc";
+            }
+        }
+       
+        const uri = `${BackendUri}${this.searchClauseAndQueryType}${this._filterClause}&${orderClause}&${facetsClause}&$select=${fields}${highlightClause}&$top=${PageSize}&$skip=${this.searchResults.length}`;
+       
         this._inProgress = true;
         axios.get(uri).then(response => {
 

@@ -94,8 +94,18 @@ export class FacetsState {
         });
     }
 
+    set ordering(ordering) {
+        this._ordering = ordering;
+        this._onChanged();
+    }
+
+    get ordering() {
+        return this._ordering;
+    }
+
     private _facets: FacetState[] = [];
     private _geoRegion: atlas.data.BoundingBox;
+    private _ordering = 0;
 
     // Dynamically generates facets from 'CognitiveSearchFacetFields' config parameter
     private createFacetStates() {
