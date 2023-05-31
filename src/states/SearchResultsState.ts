@@ -96,8 +96,8 @@ export class SearchResultsState extends ErrorMessageState {
 
         var orderClause = "";
 
-        if (this._facetsState.ordering != 0) {
-            if (this._facetsState.ordering == 1) {
+        if (this._facetsState.ordering !== 0) {
+            if (this._facetsState.ordering === 1) {
                 orderClause = "$orderby=metadata_title";
             } else {
                 orderClause = "$orderby=metadata_title desc";

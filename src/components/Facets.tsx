@@ -32,7 +32,7 @@ export class Facets extends React.Component<{ state: FacetsState, inProgress: bo
                <OrderValueListItem key={"order_asc"} dense disableGutters>
                     <Checkbox edge="start" disableRipple
                             disabled={this.props.inProgress}
-                            checked={state.ordering == 1}
+                            checked={state.ordering === 1}
                             onChange={(evt) => evt.target.checked ? state.ordering = 1 : state.ordering = 0}
                     />
                     <ListItemText primary="Tri croissant" />
@@ -40,7 +40,7 @@ export class Facets extends React.Component<{ state: FacetsState, inProgress: bo
                 <OrderValueListItem key={"order_desc"} dense disableGutters>
                     <Checkbox edge="start" disableRipple
                             disabled={this.props.inProgress}
-                            checked={state.ordering == 2}
+                            checked={state.ordering === 2}
                             onChange={(evt) => evt.target.checked ? state.ordering = 2 : state.ordering = 0}
                         />
                     <ListItemText primary="Tri décroissant" />
